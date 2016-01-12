@@ -37,7 +37,7 @@ public class ExportUI extends BaseUI {
 	
 	private void setDefaultValue() {
 		pathTextField.setText(System.getProperty("user.dir"));
-		filenemeTextField.setText(FileUtil.randomFilename());
+		filenameTextField.setText(FileUtil.randomFilename());
 	}
 
 	/**
@@ -62,8 +62,8 @@ public class ExportUI extends BaseUI {
 		keyLabel.setBounds(50, 60, 100, 30);
 		add(keyLabel);
 
-		filenemeTextField.setBounds(150, 60, 400, 30);
-		add(filenemeTextField);
+		filenameTextField.setBounds(150, 60, 400, 30);
+		add(filenameTextField);
 
 		saveButton.setBounds(600, 60, 100, 30);
 		add(saveButton);
@@ -104,13 +104,40 @@ public class ExportUI extends BaseUI {
 			}
 		});
 	}
+	
+	/**
+	 * 提示输入有误
+	 * @param tf 文本输入框
+	 * @param message 提示信息
+	 */
+	private void showMessage(JTextField tf, String message) {
+		JOptionPane.showMessageDialog(null, message, "WARNING_MESSAGE",
+				JOptionPane.WARNING_MESSAGE);
+		tf.requestFocus();
+		tf.selectAll();
+	}
 
 	private void addSaveListener() {
 		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String filename = String.format("%s/%s", 
-						pathTextField.getText(), filenemeTextField.getText());
+				String path = pathTextField.getText();
+				if (!FileUtil.exists(path)) {
+					showMessage(pathTextField, "Path invalid!!!");
+					return;
+				}
+				String filename = filenameTextField.getText();
+				if (filename == null || filename.trim().equals("")) {
+					showMessage(filenameTextField, "Please enter keywords!");
+					return;
+				}
+				
+				filename = String.format("%s/%s", path, filename);
+				if (FileUtil.exists(filename)) {
+					showMessage(filenameTextField, "The file exists. Please enter other filename!");
+					return;
+				}
+				
 				FileUtil.save(filename, contentTextArea.getText());
 				JOptionPane.showMessageDialog(null, "Saved " + filename, "MESSAGE",
 						JOptionPane.INFORMATION_MESSAGE);
@@ -122,7 +149,7 @@ public class ExportUI extends BaseUI {
 
 	private JTextField pathTextField = new JTextField();
 	private JButton openButton = new JButton("Open");
-	private JTextField filenemeTextField = new JTextField();
+	private JTextField filenameTextField = new JTextField();
 	private JButton saveButton = new JButton("Save");
 	private JTextArea contentTextArea = new JTextArea();
 }
