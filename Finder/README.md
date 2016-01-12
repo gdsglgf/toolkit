@@ -1,5 +1,15 @@
 #Finder
 
+## Introduction
+### Searching
+Searching whatever you want.
+
+### Export
+Export the searching result as plain text file.
+
+## Installation
+
+```
 cd src
 
 javac com/tool/finder/Main.java
@@ -13,3 +23,4 @@ Main-Class: com.tool.finder.Main
 Sealed: true
 
 jar -uvmf temp.mf finder.jar
+```
