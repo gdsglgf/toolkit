@@ -12,7 +12,7 @@ Export the searching result as plain text file.
 ```
 cd src
 
-javac com/tool/finder/Main.java
+javac -encoding utf-8 com/tool/finder/Main.java
 
 java com.tool.finder.Main
 
