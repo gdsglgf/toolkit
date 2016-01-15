@@ -1,4 +1,4 @@
-package com.tool.finder;
+package com.tool.finder.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +18,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.tool.finder.util.FileUtil;
+
 public class FinderUI extends BaseUI {
 
 	public FinderUI() {
@@ -34,8 +36,10 @@ public class FinderUI extends BaseUI {
 	private void addMenu() {
 		JMenuBar menubar = new JMenuBar(); // 创建菜单栏
 		JMenu menu = new JMenu("File"); // 创建“文件”菜单
+		JMenuItem mavenItem = new JMenuItem("Maven Repo Parser");
 		JMenuItem exportItem = new JMenuItem("Export"); // 创建“导出"菜单项
 		JMenuItem closeItem = new JMenuItem("Exit"); // 创建“退出"菜单项
+		menu.add(mavenItem);
 		menu.add(exportItem);
 		menu.add(closeItem);
 		menubar.add(menu); // 将文件添加到菜单栏上
@@ -61,6 +65,16 @@ public class FinderUI extends BaseUI {
 						contentTextArea.getText(), resultTextArea.getText());
 				export.setVisible(true);
 				export.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	// 关闭当前窗口, 不影响其他父窗口
+			}
+		});
+		
+		// Maven本地仓库监听
+		mavenItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MavenRepoUI repo = new MavenRepoUI();
+				repo.setVisible(true);
+				repo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			}
 		});
 	}

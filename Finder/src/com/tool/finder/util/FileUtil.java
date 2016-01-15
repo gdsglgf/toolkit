@@ -1,4 +1,4 @@
-package com.tool.finder;
+package com.tool.finder.util;
 
 import java.io.File;
 import java.io.FileWriter;
