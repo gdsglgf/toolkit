@@ -10,6 +10,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.tool.finder.thread.MavenRepoFinder;
+import com.tool.finder.util.Dependency;
 import com.tool.finder.util.FileUtil;
 
 public class MavenRepoUI extends BaseUI {
@@ -59,11 +60,20 @@ public class MavenRepoUI extends BaseUI {
 				String key = keyTextField.getText();
 				resultTextArea.setText("");
 				int length = MavenRepoFinder.repos.size();
+				Dependency old = new Dependency();
 				for (int i = 0; i < length; i++) {
 					String jar = MavenRepoFinder.repos.get(i);
 					if (jar.contains(key) || jar.contains(key.toLowerCase())) {
-						resultTextArea.append(jar);
-						resultTextArea.append(FileUtil.CRLF);
+					    Dependency cur = Dependency.parse(jar);
+					    if (!old.isSame(cur)) {
+					        if (!old.isEmpty()) {
+					            resultTextArea.append(FileUtil.CRLF);
+					        }					        
+					        resultTextArea.append(cur.toString());
+					    } else if (!cur.getVersion().equals(old.getVersion())) {
+					        resultTextArea.append(" " + cur.getVersion());
+					    }						
+						old = cur;
 					}
 				}
 			}
