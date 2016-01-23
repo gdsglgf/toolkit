@@ -2,9 +2,6 @@ package com.tool.finder.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -18,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.tool.finder.thread.Finder;
 import com.tool.finder.util.FileUtil;
 
 public class FinderUI extends BaseUI {
@@ -180,45 +178,10 @@ public class FinderUI extends BaseUI {
 				}
 				contentTextArea.setText("");
 				resultTextArea.setText("");
-				count = 0;
-				searching(path, key);
-				String msg = String.format("Searched %d results", count);
-				JOptionPane.showMessageDialog(null, msg, "MESSAGE",
-						JOptionPane.INFORMATION_MESSAGE);
+				Thread t = new Thread(new Finder(contentTextArea, resultTextArea, path, key));
+				t.start();
 			}
 		});
-	}
-
-	/**
-	 * 搜索文件
-	 * @param path 搜索根目录
-	 * @param key 搜索关键字
-	 */
-	private void searching(String path, String key) {
-		File file = new File(path);
-		Queue<File> fileQueue = new LinkedBlockingQueue<File>();
-		fileQueue.add(file);
-		while (fileQueue.size() > 0) {
-			File f = fileQueue.poll();
-			if (f.isDirectory()) {
-				File[] files = f.listFiles();
-				if (files != null) {
-					for (int i = 0; i < files.length; i++) {
-						fileQueue.add(files[i]);
-					}
-				}
-			} else {
-				String filename = f.getName();
-				if (filename.contains(key)
-						|| filename.toLowerCase().contains(key.toLowerCase())) {
-					resultTextArea.append(f.getAbsolutePath());
-					resultTextArea.append(FileUtil.CRLF);
-					count++;
-				}
-				contentTextArea.append(f.getAbsolutePath());
-				contentTextArea.append(FileUtil.CRLF);
-			}
-		}
 	}
 
 	private static final long serialVersionUID = -7716053189657055365L;
@@ -229,5 +192,4 @@ public class FinderUI extends BaseUI {
 	private JButton searchButton = new JButton("Searching");
 	private JTextArea contentTextArea = new JTextArea();
 	private JTextArea resultTextArea = new JTextArea();
-	private int count = 0;
 }
