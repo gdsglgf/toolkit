@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.howtodoinjava.demo.mapper.UserMapper">
+    <!-- ResultMap -->
+    <resultMap id="UserResultMap" 
+        type="com.howtodoinjava.demo.model.User">
+        <id property="id" column="id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+    </resultMap>
+    
+    <select id="getAllUsers" 
+        resultMap="UserResultMap"
+        useCache="true">
+        SELECT * 
+        FROM user
+    </select>
+    <select id="getUserUsingid" 
+        parameterType="int"
+        resultMap="UserResultMap"
+        useCache="true">
+        SELECT * 
+        FROM user 
+        WHERE id = #{id}
+    </select>
+    <select id="getUserUsingUsername" 
+        parameterType="String"
+        resultMap="UserResultMap"
+        useCache="true">
+        SELECT * 
+        FROM user 
+        WHERE username = #{username}
+    </select>
+    <insert id="createUser" 
+        parameterType="com.howtodoinjava.demo.model.User"
+        flushCache="true" 
+        keyProperty="id" 
+        keyColumn="id"
+        useGeneratedKeys="true">
+        INSERT INTO user (username, password) 
+        VALUES (#{username}, #{password})
+    </insert>
+    <update id="updateUser"
+        parameterType="com.howtodoinjava.demo.model.User"
+        flushCache="true">
+        UPDATE user 
+        SET username = #{username}, password = #{password}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteUser"
+        parameterType="int"
+        flushCache="true">
+        DELETE FROM user 
+        WHERE id = #{id}
+    </delete>
+</mapper>
