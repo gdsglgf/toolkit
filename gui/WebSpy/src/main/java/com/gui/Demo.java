@@ -1,11 +1,12 @@
 package com.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxEditor;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class Demo {
 	String[] fontsize = { "12", "14", "16" };
@@ -31,13 +32,6 @@ public class Demo {
 		ComboBoxEditor editor = comboBox.getEditor();
 		comboBox.configureEditor(editor, fontsize[0]);
 		frame.getContentPane().add(comboBox);
-//
-//		JFileChooser fileChooser = new JFileChooser();
-//		fileChooser.setDialogTitle("Choose a File");
-//		fileChooser.setMultiSelectionEnabled(false);
-//	    fileChooser.setBounds(10, 35, 550, 500 );
-//	    fileChooser.setVisible(true);
-//	    frame.getContentPane().add(fileChooser);
 
 		frame.setVisible(true);
 		frame.setResizable(false);
