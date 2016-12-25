@@ -1,0 +1,44 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<context:component-scan base-package="com.howtodoinjava.demo.aspect" />
+	<aop:aspectj-autoproxy />
+	<bean id="helloWorldService" class="com.howtodoinjava.demo.aspect.HelloWorldService" />
+	<bean id="helloWorldAspect" class="com.howtodoinjava.demo.aspect.HelloWorldAspect" />
+	<bean id="beforeAdvice" class="com.howtodoinjava.demo.aspect.BeforeAdviceImpl" />
+	<bean id="introductionService" class="com.howtodoinjava.demo.aspect.IntroductiondService" />
+	<aop:config>
+		<aop:advisor
+			pointcut="execution(* com.howtodoinjava.demo.aspect..*.sayAdvisorBefore(..))"
+			advice-ref="beforeAdvice" />
+		<aop:aspect ref="helloWorldAspect">
+			<aop:pointcut id="helloWorldServicePointcut"
+				expression="execution(* com.howtodoinjava.demo.aspect.HelloWorldService..*.*(..))" />
+			<aop:before pointcut="execution(* com.howtodoinjava.demo.aspect..*.sayBefore(..)) and args(param)"
+				method="beforeAdvice(java.lang.String)" arg-names="param" />
+			<aop:after-returning pointcut-ref="helloWorldServicePointcut"
+				method="afterReturningAdvice" arg-names="retVal" returning="retVal" />
+			<aop:after-throwing pointcut-ref="helloWorldServicePointcut"
+				method="afterThrowingAdvice" arg-names="exception" throwing="exception" />
+			<aop:after pointcut-ref="helloWorldServicePointcut" method="afterFinallyAdvice" />
+			<aop:around pointcut-ref="helloWorldServicePointcut"
+				method="aroundAdvice" />
+			<aop:declare-parents
+				types-matching="com.howtodoinjava.demo.aspect..*.IHelloWorldService+"
+				implement-interface="com.howtodoinjava.demo.aspect.IIntroductionService"
+				default-impl="com.howtodoinjava.demo.aspect.IntroductiondService" />
+		</aop:aspect>
+	</aop:config>
+</beans>
