@@ -4,12 +4,34 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 public class IOUtils {
+	private static void writeToFile(String text, String path, OpenOption... options) {
+		Path targetPath = Paths.get(path);
+		byte[] bytes = text.getBytes(StandardCharsets.UTF_8);
+		try {
+			Files.write(targetPath, bytes, options);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 写字符串到文件
+	 * @param text  要保存的字符串
+	 * @param path  文件路径名
+	 */
+	public static void appendToFile(String text, String path) {
+		// append to an existing file, create file if it doesn't initially exist
+		OpenOption[] ops = new OpenOption[] {StandardOpenOption.CREATE, StandardOpenOption.APPEND};
+		writeToFile(text, path, ops);
+	}
+	
 	public static String writeToFile(String text, String path) {
 		String result = null;
 		Path targetPath = Paths.get(path);

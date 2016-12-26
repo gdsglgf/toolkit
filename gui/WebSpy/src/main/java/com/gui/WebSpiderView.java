@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.gui.parser.CodeParser;
 import com.gui.parser.ParserFactory;
 import com.gui.util.HttpRequest;
 import com.gui.util.IOUtils;
@@ -78,6 +79,13 @@ public class WebSpiderView {
 		JButton btnMatch = new JButton("Match");
 		btnMatch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (html == null) {
+					html = textArea.getText();
+				}
+				if (html == null) {
+					JOptionPane.showMessageDialog(frame, "The html is empty.", null, JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 				String reg = (String) comboBox.getSelectedItem();
 				resultTextArea.setText(String.format("Pattern[%s]\n", reg));
 				matches = ParserFactory.parse(html, reg);
@@ -139,6 +147,20 @@ public class WebSpiderView {
 			}
 		});
 		mnFile.add(mntmSaveResult);
+		
+		JMenuItem mntmParseResult = new JMenuItem("Parse Result");
+		mntmParseResult.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String keys = (String) JOptionPane.showInputDialog("Please enter keys(Comma Separated):", "</div>,</form>");
+				if (keys == null) {
+					return;
+				}
+				String[] key = keys.split(",");
+				CodeParser.saveParseResult(matches, key);
+				JOptionPane.showMessageDialog(frame, "Save Parse Result done.", null, JOptionPane.PLAIN_MESSAGE);
+			}
+		});
+		mnFile.add(mntmParseResult);
 
 		mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
@@ -163,6 +185,10 @@ public class WebSpiderView {
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	public List<String> getMatches() {
+		return matches;
 	}
 
 	public static void main(String[] args) {
