@@ -1,5 +1,6 @@
 package com.gui.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -11,6 +12,24 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 public class IOUtils {
+	public static String createUniqueDIR() {
+		return String.format("temp%d", System.currentTimeMillis());
+	}
+	
+	public static boolean mkdir(String path) {
+		File f = new File(path);
+		if (f.exists()) {
+			return false;
+		}
+		return f.mkdirs();
+	}
+	
+	public static String mkdir() {
+		String dir = String.format("temp%d", System.currentTimeMillis());
+		mkdir(dir);
+		return dir;
+	}
+	
 	private static void writeToFile(String text, String path, OpenOption... options) {
 		Path targetPath = Paths.get(path);
 		byte[] bytes = text.getBytes(StandardCharsets.UTF_8);
