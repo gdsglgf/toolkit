@@ -18,3 +18,6 @@ It is like that "key=value", and "=" is needed.
 eg. "name=code"  --> (for iteye urls)
     "class=cnblogs_code"  --> (for cnblogs urls)
 ```
+
+# Maven export runnable jar
+mvn clean compile assembly:single
