@@ -1,0 +1,55 @@
+## datatables demo 3
+links: http://blog.csdn.net/chenjing502/article/details/38285291
+http://localhost:8080/page3.html
+html: page3.html
+code package: com.example.myproject.page3
+
+%5B --> [
+%5D --> ]
+
+客户端ajax请求第1页数据的相关参数
+-----origin data------
+{
+  "draw":1,
+  "columns":[
+    {"data":"firstName","name":"first_name","searchable":false,"orderable":true,"search":{"value":"","regex":false}},
+    {"data":"lastName","name":"last_name","searchable":false,"orderable":true,"search":{"value":"","regex":false}},
+    {"data":"position","name":"position","searchable":false,"orderable":true,"search":{"value":"","regex":false}},
+    {"data":"office","name":"office","searchable":true,"orderable":true,"search":{"value":"","regex":false}},
+    {"data":"startDate","name":"start_date","searchable":false,"orderable":false,"search":{"value":"","regex":false}},
+    {"data":"salary","name":"salary","searchable":false,"orderable":false,"search":{"value":"","regex":false}}
+  ],
+  "order":[{"column":0,"dir":"asc"}],
+  "start":0,
+  "length":10,
+  "search":{"value":"","regex":false}
+}
+
+Request URL:http://localhost:8080/empPage3?draw=1&columns%5B0%5D%5Bdata%5D=firstName&columns%5B0%5D%5Bname%5D=first_name&columns%5B0%5D%5Bsearchable%5D=false&columns%5B0%5D%5Borderable%5D=true&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=lastName&columns%5B1%5D%5Bname%5D=last_name&columns%5B1%5D%5Bsearchable%5D=false&columns%5B1%5D%5Borderable%5D=true&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=position&columns%5B2%5D%5Bname%5D=position&columns%5B2%5D%5Bsearchable%5D=false&columns%5B2%5D%5Borderable%5D=true&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=office&columns%5B3%5D%5Bname%5D=office&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=true&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=startDate&columns%5B4%5D%5Bname%5D=start_date&columns%5B4%5D%5Bsearchable%5D=false&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=salary&columns%5B5%5D%5Bname%5D=salary&columns%5B5%5D%5Bsearchable%5D=false&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&order%5B0%5D%5Bcolumn%5D=0&order%5B0%5D%5Bdir%5D=asc&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1482828071547
+
+
+修改ajax重新构造了请求的参数
+"search":{"value":"","regex":false}
+构造成
+"searchRegex":false,"searchValue":""
+
+
+-----form data------
+{
+  "draw":1,
+  "columns":[
+    {"data":"firstName","name":"first_name","searchable":false,"orderable":true,"searchRegex":false,"searchValue":""},
+    {"data":"lastName","name":"last_name","searchable":false,"orderable":true,"searchRegex":false,"searchValue":""},
+    {"data":"position","name":"position","searchable":false,"orderable":true,"searchRegex":false,"searchValue":""},
+    {"data":"office","name":"office","searchable":true,"orderable":true,"searchRegex":false,"searchValue":""},
+    {"data":"startDate","name":"start_date","searchable":false,"orderable":false,"searchRegex":false,"searchValue":""},
+    {"data":"salary","name":"salary","searchable":false,"orderable":false,"searchRegex":false,"searchValue":""}
+  ],
+  "order":[{"column":0,"dir":"asc"}],
+  "start":0,"length":10,
+  "search":{"value":"","regex":false}
+}
+
+Request URL:http://localhost:8080/empPage3?draw=1&columns%5B0%5D%5Bdata%5D=firstName&columns%5B0%5D%5Bname%5D=first_name&columns%5B0%5D%5Bsearchable%5D=false&columns%5B0%5D%5Borderable%5D=true&columns%5B0%5D%5BsearchRegex%5D=false&columns%5B0%5D%5BsearchValue%5D=&columns%5B1%5D%5Bdata%5D=lastName&columns%5B1%5D%5Bname%5D=last_name&columns%5B1%5D%5Bsearchable%5D=false&columns%5B1%5D%5Borderable%5D=true&columns%5B1%5D%5BsearchRegex%5D=false&columns%5B1%5D%5BsearchValue%5D=&columns%5B2%5D%5Bdata%5D=position&columns%5B2%5D%5Bname%5D=position&columns%5B2%5D%5Bsearchable%5D=false&columns%5B2%5D%5Borderable%5D=true&columns%5B2%5D%5BsearchRegex%5D=false&columns%5B2%5D%5BsearchValue%5D=&columns%5B3%5D%5Bdata%5D=office&columns%5B3%5D%5Bname%5D=office&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=true&columns%5B3%5D%5BsearchRegex%5D=false&columns%5B3%5D%5BsearchValue%5D=&columns%5B4%5D%5Bdata%5D=startDate&columns%5B4%5D%5Bname%5D=start_date&columns%5B4%5D%5Bsearchable%5D=false&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5BsearchRegex%5D=false&columns%5B4%5D%5BsearchValue%5D=&columns%5B5%5D%5Bdata%5D=salary&columns%5B5%5D%5Bname%5D=salary&columns%5B5%5D%5Bsearchable%5D=false&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5BsearchRegex%5D=false&columns%5B5%5D%5BsearchValue%5D=&order%5B0%5D%5Bcolumn%5D=0&order%5B0%5D%5Bdir%5D=asc&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1482828140674
+
+

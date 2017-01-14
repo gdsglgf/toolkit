@@ -1,0 +1,73 @@
+https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css
+https://code.jquery.com/jquery-1.12.4.min.js
+https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js
+
+
+DataTables版本差异
+v1.10之前版本, 使用Hungarian notation(匈牙利表示法)
+匈牙利表示法: 标识符的名字以一个或者多个小写字母开头作为前缀；前缀之后的是首字母大写的一个单词或多个单词组合，该单词要指明变量的用途。
+
+v1.10以后版本, 推荐使用camel case(驼峰命名法), 同时兼容以前版本, V2版本可能会放弃支持匈牙利表示法
+驼峰命名法: 第一个词的首字母, 以及后面每个词的首字母都大写
+
+Links:
+版本信息来源(Line 9809-9823: Developer note)
+https://cdn.datatables.net/1.10.13/js/jquery.dataTables.js
+
+变量的命名方法:Hungarian,camelCase,PascalCase
+http://www.cnblogs.com/lovelovelt/archive/2009/12/11/1622156.html
+Hungarian Notation
+https://msdn.microsoft.com/en-us/library/aa260976(VS.60).aspx
+
+
+datatables 带查询条件java服务端分页处理
+http://blog.csdn.net/lllliulin/article/details/51193004
+
+JS----dataTables分页排序
+http://blog.csdn.net/damys/article/details/39076731
+
+DataTables四种数据源: 主要有HTML (DOM)数据源，Ajax数据源，JavaScript数据源以及服务器端数据源
+https://www.iteblog.com/archives/1257
+
+Datatables官网
+[en]https://datatables.net/
+[zh]http://datatables.club/
+
+DataTables internationalisation
+http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/
+
+Twitter Bootstrap Style
+https://www.datatables.net/blog/2011-12-08
+https://www.datatables.net/media/blog/bootstrap/
+
+
+
+http://json.org/
+
+http://blog.csdn.net/zhuyijian135757/article/details/38269715
+http://www.mkyong.com/java/how-to-convert-java-map-to-from-json-jackson/
+http://www.itnose.net/detail/6199228.html
+
+
+
+Java模板引擎Thymeleaf
+http://www.thymeleaf.org/
+https://www.tianmaying.com/tutorial/using-thymeleaf
+
+
+
+//跳转到指定页
+function setCurPage(pageNum){
+    $('#listDataTable').DataTable().page(pageNum).draw(false);
+}
+
+
+
+
+http://echarts.baidu.com/examples.html
+http://www.hcharts.cn/demo/highcharts
+
+
+
+
+

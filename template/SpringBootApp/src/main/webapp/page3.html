@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" type="image/ico"
+	href="http://www.datatables.net/favicon.ico">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+
+</head>
+
+<body class="dt-example">
+	<table id="example" class="display" cellspacing="0" width="100%">
+		<thead>
+			<tr>
+				<th>First name</th>
+				<th>Last name</th>
+				<th>Position</th>
+				<th>Office</th>
+				<th>Start date</th>
+				<th>Salary</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th>First name</th>
+				<th>Last name</th>
+				<th>Position</th>
+				<th>Office</th>
+				<th>Start date</th>
+				<th>Salary</th>
+			</tr>
+		</tfoot>
+	</table>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+
+	<script type="text/javascript">
+	$('#example').dataTable( {
+		lengthMenu : [[10, 25, 50, -1], [10, 25, 50, "All"]],
+			processing: true,
+			serverSide: true,
+			ajax: {
+				url: "empPage3",
+				data : function(data) {
+					console.log("-----origin data------");
+					console.log(JSON.stringify(data));
+					for (var i = 0; i < data.columns.length; i++) {
+						var column = data.columns[i];
+						column.searchRegex = column.search.regex;
+						column.searchValue = column.search.value;
+						delete(column.search);
+					}
+					console.log("-----form data------");
+					console.log(JSON.stringify(data));
+				}
+			},
+			columnDefs: [
+				 {
+					 "targets": [ 0 ],
+					 "visible": true
+				 }
+			],
+			columns: [
+				{ "data":"firstName", "name":"first_name", "searchable":false},
+				{ "data":"lastName", "name":"last_name", "searchable":false},
+				{ "data":"position", "name":"position", "searchable":false},
+				{ "data":"office", "name":"office"},
+				{ "data":"startDate", "name":"start_date", "searchable":false,"orderable":false},
+				{ "data":"salary", "name":"salary", "searchable":false,"orderable":false}
+			]
+		} );
+	</script>
+</body>
+</html>

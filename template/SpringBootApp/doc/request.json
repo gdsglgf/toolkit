@@ -1,0 +1,15 @@
+{
+  "draw":1,
+  "columns":[
+    {"data":"firstName","name":"first_name","searchable":false,"orderable":true,"search":{"value":"","regex":false}},
+    {"data":"lastName","name":"last_name","searchable":false,"orderable":true,"search":{"value":"","regex":false}},
+    {"data":"position","name":"position","searchable":false,"orderable":true,"search":{"value":"","regex":false}},
+    {"data":"office","name":"office","searchable":true,"orderable":true,"search":{"value":"","regex":false}},
+    {"data":"startDate","name":"start_date","searchable":false,"orderable":false,"search":{"value":"","regex":false}},
+    {"data":"salary","name":"salary","searchable":false,"orderable":false,"search":{"value":"","regex":false}}
+  ],
+  "order":[{"column":0,"dir":"asc"}],
+  "start":0,
+  "length":10,
+  "search":{"value":"","regex":false}
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+</head>
+
+<body class="dt-example">
+	<div>
+		<input type="text" id="office" placeholder="Office">
+		<input type="button" onclick="search1()" value="查询">
+	</div>
+
+	<table id="example" class="display" cellspacing="0" width="100%">
+		<thead>
+			<tr>
+				<th>First name</th>
+				<th>Last name</th>
+				<th>Position</th>
+				<th>Office</th>
+				<th>Start date</th>
+				<th>Salary</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th>First name</th>
+				<th>Last name</th>
+				<th>Position</th>
+				<th>Office</th>
+				<th>Start date</th>
+				<th>Salary</th>
+			</tr>
+		</tfoot>
+	</table>
+</body>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+	$.extend( true, $.fn.dataTable.defaults, {
+		"pagingType" : "simple_numbers", // 设置分页控件的模式 simple_numbers, full_numbers
+		//"lengthMenu" : [ 10 ], //设置一页展示10条记录
+		//"lengthChange" : false, //屏蔽tables的一页展示多少条记录的下拉列表
+		"searching": false, // 屏蔽datatales的查询框
+		"ordering": false,  // 屏蔽排序功能
+		"processing" : true, // 打开数据加载时的等待效果
+		"serverSide" : true, // 打开后台分页
+		"language": {
+			"url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Chinese.json"
+		},
+	} );
+
+	var table;
+	$(document).ready(function() {
+		table = $('#example').DataTable({
+			"ajax" : {
+				"url" : "emps",
+				"dataSrc" : "aaData",
+				"data" : function(data) {
+					console.log("-----origin data------");
+					console.log(JSON.stringify(data));
+					
+					var formData = new Object();
+					formData.draw = data.draw;		// 请求次数
+					formData.start = data.start;	// 分页参数
+					formData.length = data.length;	// 每页显示的条数
+					
+					// 添加查询参数
+					var office = $('#office').val();
+					if (office) {
+						formData.office = office;
+					}
+					
+					console.log("-----form data------");
+					console.log(JSON.stringify(formData));
+					
+					return formData;
+				}
+			},
+			"columns": [
+				{ "data": "firstName" },
+				{ "data": "lastName" },
+				{ "data": "position" },
+				{ "data": "office" },
+				{ "data": "startDate" },
+				{ "data": "salary" }
+			]
+		});
+	});
+
+	function search1() {
+		table.ajax.reload();
+	}
+</script>
+</html>
