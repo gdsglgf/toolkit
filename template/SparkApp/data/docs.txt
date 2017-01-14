@@ -1,0 +1,9 @@
+<doc>
+<url>url1</url>
+</doc>
+<doc>
+<url>url2</url>
+</doc>
+<doc>
+<url>url3</url>
+</doc>
