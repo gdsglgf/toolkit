@@ -1,0 +1,4 @@
+hello world
+this is my first spark app
+this is a word count application
+just for fun
