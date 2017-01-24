@@ -1,0 +1,7 @@
+com.model.Student
+name=String
+age=int
+enter=Date=Date
+pass=boolean
+a=List<String>
+b=ArrayList
