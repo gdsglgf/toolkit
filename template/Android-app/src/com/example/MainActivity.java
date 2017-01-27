@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.exits:
+        case R.id.exist:
             this.finish();
             break;
         }
