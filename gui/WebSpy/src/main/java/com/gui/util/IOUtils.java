@@ -1,8 +1,10 @@
 package com.gui.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
@@ -12,6 +14,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 public class IOUtils {
+	public static String LINE_SEPARATOR = System.getProperty("line.separator");
+
 	public static String createUniqueDIR() {
 		return String.format("temp%d", System.currentTimeMillis());
 	}
@@ -74,13 +78,29 @@ public class IOUtils {
 	}
 	
 	public static String streamToString(InputStream inputStream) throws IOException {
-		byte[] buffer = new byte[2048];
-		int readBytes = 0;
-		StringBuilder sb = new StringBuilder();
-		while ((readBytes = inputStream.read(buffer)) > 0) {
-			sb.append(new String(buffer, 0, readBytes));
+		// byte[] buffer = new byte[2048];
+		// int readBytes = 0;
+		// StringBuilder sb = new StringBuilder();
+		// while ((readBytes = inputStream.read(buffer)) > 0) {
+		// 	sb.append(new String(buffer, 0, readBytes));
+		// }
+		// inputStream.close();
+		// return sb.toString();
+		
+		StringBuffer buffer = new StringBuffer();
+		InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
+		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+		String str = null;
+		while ((str = bufferedReader.readLine()) != null) {
+			buffer.append(str);
+			buffer.append(LINE_SEPARATOR);
 		}
+		bufferedReader.close();
+		inputStreamReader.close();
+		// 释放资源
 		inputStream.close();
-		return sb.toString();
+
+		return buffer.toString();
 	}
 }

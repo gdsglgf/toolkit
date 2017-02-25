@@ -168,10 +168,19 @@ public class WebSpiderView {
 //			}
 //		});
 		
-		mntmSaveByItem.addActionListener(event -> {
-			String dir = CodeParser.saveParseResultByItem(matches);
-			JOptionPane.showMessageDialog(frame, "Save code in " + dir, null, JOptionPane.PLAIN_MESSAGE);
+		// java8 lambda
+//		mntmSaveByItem.addActionListener(event -> {
+//			String dir = CodeParser.saveParseResultByItem(matches);
+//			JOptionPane.showMessageDialog(frame, "Save code in " + dir, null, JOptionPane.PLAIN_MESSAGE);
+//		});
+		
+		mntmSaveByItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String dir = CodeParser.saveParseResultByItem(matches);
+				JOptionPane.showMessageDialog(frame, "Save code in " + dir, null, JOptionPane.PLAIN_MESSAGE);
+			}
 		});
+		
 		mnFile.add(mntmSaveByItem);
 
 		mnHelp = new JMenu("Help");
