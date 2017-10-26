@@ -23,7 +23,7 @@ def listfiles(path, fileType):
 def findall(filePath, pattern):
 	with open(filePath) as fs:
 		text = fs.read()
-		result = pattern.findall(text)
+		result = list(set(pattern.findall(text)))
 
 		show(result)
 
